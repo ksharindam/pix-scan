@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Pix Scan
+GenericName=Scanner Gui
+Comment=Gui frontend for HP Scanner
+Exec=pixscan
+Icon=pix-scan
+Categories=System;
+Terminal=false
+Type=Application
+StartupNotify=false

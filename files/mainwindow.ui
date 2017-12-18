@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>413</width>
+    <height>213</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>HP Scan</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0">
+    <property name="verticalSpacing">
+     <number>12</number>
+    </property>
+    <item row="1" column="2">
+     <widget class="QComboBox" name="comboColor">
+      <item>
+       <property name="text">
+        <string>Color</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gray</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Lineart</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Resolution :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="2">
+     <widget class="QComboBox" name="comboResolution">
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>100 DPI</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>200 DPI</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>300 DPI</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>600 DPI</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1200 DPI</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Scan Area :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QComboBox" name="comboArea">
+      <item>
+       <property name="text">
+        <string>Full Area</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4x6 inch Landscape</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Letter (8.5x11in)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>A4 (297x210mm)</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Color Mode :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Output :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
+     <widget class="QPushButton" name="scanBtn">
+      <property name="text">
+       <string>Scan</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="closeBtn">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLineEdit" name="filenameEdit">
+      <property name="placeholderText">
+       <string>filename</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="labelExt">
+      <property name="text">
+       <string>  .jpg</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
