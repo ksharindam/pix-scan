@@ -4,7 +4,7 @@
 import sys, os
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop
-from mainwindow import Ui_MainWindow
+from ui_mainwindow import Ui_MainWindow
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self):

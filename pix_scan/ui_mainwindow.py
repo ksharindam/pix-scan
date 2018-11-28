@@ -108,6 +108,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Output :", None))
         self.scanBtn.setText(_translate("MainWindow", "Scan", None))
         self.closeBtn.setText(_translate("MainWindow", "Close", None))
+        self.closeBtn.setShortcut(_translate("MainWindow", "Esc", None))
         self.filenameEdit.setPlaceholderText(_translate("MainWindow", "filename", None))
         self.labelExt.setText(_translate("MainWindow", "  .jpg", None))
 
