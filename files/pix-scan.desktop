@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Pix Scan
-GenericName=Scanner Gui
+Name=Scan Photo
+GenericName=Scan Photo
 Comment=Gui frontend for HP Scanner
 Exec=pixscan
 Icon=pix-scan

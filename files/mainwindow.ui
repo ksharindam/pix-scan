@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>413</width>
-    <height>213</height>
+    <height>219</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>HP Scan</string>
+   <string>Scan Photo</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0">
@@ -138,6 +138,9 @@
      <widget class="QPushButton" name="scanBtn">
       <property name="text">
        <string>Scan</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
       </property>
      </widget>
     </item>

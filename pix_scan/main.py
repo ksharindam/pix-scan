@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Qt front end for hp-scan program """
+""" Qt front end for scanimage program """
 
 import sys, os
 from PyQt4.QtGui import QApplication, QMainWindow
@@ -10,6 +10,7 @@ class Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
+        self.scanBtn.setShortcut("Space")
         self.comboColor.currentIndexChanged.connect(self.onColorModeChange)
         self.scanBtn.clicked.connect(self.startScanning)
         self.closeBtn.clicked.connect(self.close)
@@ -31,7 +32,7 @@ class Window(QMainWindow, Ui_MainWindow):
         dpi = ["100", "200", "300", "600", "1200"]
         colors = ["Color", "Gray", "Lineart"]
         page_sizes = ["None", "-x 152.4mm -y 101.6mm", "-x 215.9mm -y 279.4mm", "-x 210mm -y 297mm"]
-        
+
         args = []
         args.append("--mode=" + colors[self.comboColor.currentIndex()])
         args.append("--resolution=" + dpi[self.comboResolution.currentIndex()])
@@ -41,7 +42,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage("Scan Started")
         wait(20)
         self.process.start('scanimage', args)
-        if not self.process.waitForFinished():
+        if not self.process.waitForFinished() or self.process.exitCode():
             self.statusbar.showMessage("Scanning Failed !")
             return
         data = self.process.readAllStandardOutput()

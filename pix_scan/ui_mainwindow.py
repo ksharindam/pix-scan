@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created by: PyQt4 UI code generator 4.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(413, 213)
+        MainWindow.resize(413, 219)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -67,6 +67,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
         self.scanBtn = QtGui.QPushButton(self.centralwidget)
+        self.scanBtn.setDefault(True)
         self.scanBtn.setObjectName(_fromUtf8("scanBtn"))
         self.gridLayout.addWidget(self.scanBtn, 5, 3, 1, 1)
         self.closeBtn = QtGui.QPushButton(self.centralwidget)
@@ -89,7 +90,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "HP Scan", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Scan Photo", None))
         self.comboColor.setItemText(0, _translate("MainWindow", "Color", None))
         self.comboColor.setItemText(1, _translate("MainWindow", "Gray", None))
         self.comboColor.setItemText(2, _translate("MainWindow", "Lineart", None))
