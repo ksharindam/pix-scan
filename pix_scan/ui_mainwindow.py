@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(413, 219)
+        MainWindow.resize(413, 236)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -101,10 +101,10 @@ class Ui_MainWindow(object):
         self.comboResolution.setItemText(3, _translate("MainWindow", "600 DPI", None))
         self.comboResolution.setItemText(4, _translate("MainWindow", "1200 DPI", None))
         self.label_4.setText(_translate("MainWindow", "Scan Area :", None))
-        self.comboArea.setItemText(0, _translate("MainWindow", "Full Area", None))
-        self.comboArea.setItemText(1, _translate("MainWindow", "4x6 inch Landscape", None))
-        self.comboArea.setItemText(2, _translate("MainWindow", "Letter (8.5x11in)", None))
-        self.comboArea.setItemText(3, _translate("MainWindow", "A4 (297x210mm)", None))
+        self.comboArea.setItemText(0, _translate("MainWindow", "A4 (210x297mm)", None))
+        self.comboArea.setItemText(1, _translate("MainWindow", "Letter (8.5x11in)", None))
+        self.comboArea.setItemText(2, _translate("MainWindow", "4x6 inch Landscape", None))
+        self.comboArea.setItemText(3, _translate("MainWindow", "Full Area", None))
         self.label_2.setText(_translate("MainWindow", "Color Mode :", None))
         self.label.setText(_translate("MainWindow", "Output :", None))
         self.scanBtn.setText(_translate("MainWindow", "Scan", None))

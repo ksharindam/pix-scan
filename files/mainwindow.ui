@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>413</width>
-    <height>219</height>
+    <height>236</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,12 +100,7 @@
      <widget class="QComboBox" name="comboArea">
       <item>
        <property name="text">
-        <string>Full Area</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>4x6 inch Landscape</string>
+        <string>A4 (210x297mm)</string>
        </property>
       </item>
       <item>
@@ -115,7 +110,12 @@
       </item>
       <item>
        <property name="text">
-        <string>A4 (297x210mm)</string>
+        <string>4x6 inch Landscape</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Full Area</string>
        </property>
       </item>
      </widget>

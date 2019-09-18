@@ -1,16 +1,18 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """ Qt front end for scanimage program """
 
 import sys, os
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop
+
+sys.path.append(os.path.dirname(__file__))
+
 from ui_mainwindow import Ui_MainWindow
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
-        self.scanBtn.setShortcut("Space")
         self.comboColor.currentIndexChanged.connect(self.onColorModeChange)
         self.scanBtn.clicked.connect(self.startScanning)
         self.closeBtn.clicked.connect(self.close)
