@@ -4,12 +4,14 @@
 import sys, os
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop
+from PyQt4 import uic
 
-sys.path.append(os.path.dirname(__file__))
+PROGRAM_DIR = os.path.dirname(__file__)
+sys.path.append(PROGRAM_DIR)
 
-from ui_mainwindow import Ui_MainWindow
+ui_mainwindow, mainwindow = uic.loadUiType(PROGRAM_DIR+"/mainwindow.ui")
 
-class Window(QMainWindow, Ui_MainWindow):
+class Window(mainwindow, ui_mainwindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
