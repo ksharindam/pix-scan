@@ -19,23 +19,7 @@
      <number>12</number>
     </property>
     <item row="1" column="2">
-     <widget class="QComboBox" name="comboColor">
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Gray</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Lineart</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QComboBox" name="comboColor"/>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
@@ -60,33 +44,8 @@
     <item row="2" column="2">
      <widget class="QComboBox" name="comboResolution">
       <property name="currentIndex">
-       <number>2</number>
+       <number>-1</number>
       </property>
-      <item>
-       <property name="text">
-        <string>100 DPI</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>200 DPI</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>300 DPI</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>600 DPI</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>1200 DPI</string>
-       </property>
-      </item>
      </widget>
     </item>
     <item row="3" column="0">
@@ -97,28 +56,7 @@
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QComboBox" name="comboArea">
-      <item>
-       <property name="text">
-        <string>A4 (210x297mm)</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Letter (8.5x11in)</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>4x6 inch Landscape</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Full Area</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QComboBox" name="comboArea"/>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">

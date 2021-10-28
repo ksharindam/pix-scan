@@ -8,7 +8,7 @@ Debian Dependency = python3-pyqt4, sane-utils
 Description = A PyQt frontend of scanimage command for use with hp printers
 
 ...........................................................................
-|   Copyright (C) 2019 Arindam Chaudhuri <ksharindam@gmail.com>            |
+|   Copyright (C) 2019-2021 Arindam Chaudhuri <ksharindam@gmail.com>       |
 |                                                                          |
 |   This program is free software: you can redistribute it and/or modify   |
 |   it under the terms of the GNU General Public License as published by   |
@@ -25,4 +25,4 @@ Description = A PyQt frontend of scanimage command for use with hp printers
 ...........................................................................
 """
 
-__version__ = "2.1"
+__version__ = "2.3"
