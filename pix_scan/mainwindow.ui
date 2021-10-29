@@ -6,29 +6,60 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>413</width>
-    <height>236</height>
+    <width>459</width>
+    <height>259</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Scan Photo</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0">
     <property name="verticalSpacing">
      <number>12</number>
     </property>
-    <item row="1" column="2">
+    <item row="1" column="3">
      <widget class="QComboBox" name="comboColor"/>
     </item>
-    <item row="2" column="0">
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Color Mode :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Resolution :</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="3">
+    <item row="1" column="0" rowspan="3">
+     <widget class="QLabel" name="scannerLabel">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../files/resources.qrc">:/scanner.png</pixmap>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QLabel" name="labelExt">
+      <property name="text">
+       <string>  .jpg</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Scan Area :</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -41,44 +72,13 @@
       </property>
      </spacer>
     </item>
-    <item row="2" column="2">
+    <item row="3" column="3">
+     <widget class="QComboBox" name="comboArea"/>
+    </item>
+    <item row="2" column="3">
      <widget class="QComboBox" name="comboResolution">
       <property name="currentIndex">
        <number>-1</number>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Scan Area :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QComboBox" name="comboArea"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Color Mode :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Output :</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QPushButton" name="scanBtn">
-      <property name="text">
-       <string>Scan</string>
-      </property>
-      <property name="default">
-       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -92,17 +92,27 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="5" column="4">
+     <widget class="QPushButton" name="scanBtn">
+      <property name="text">
+       <string>Scan</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
      <widget class="QLineEdit" name="filenameEdit">
       <property name="placeholderText">
        <string>filename</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="labelExt">
+    <item row="0" column="1">
+     <widget class="QLabel" name="label">
       <property name="text">
-       <string>  .jpg</string>
+       <string>Output :</string>
       </property>
      </widget>
     </item>
@@ -110,6 +120,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../files/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

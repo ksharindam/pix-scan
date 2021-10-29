@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Packaging
+build/
+*.egg-info/
+
 # C extensions
 *.so
 

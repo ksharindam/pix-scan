@@ -2,7 +2,7 @@
 """ Qt front end for scanimage program """
 
 import sys, os
-from PyQt4.QtGui import QApplication, QMainWindow, QImage
+from PyQt4.QtGui import QApplication, QMainWindow, QImage, QStyle, QIcon
 from PyQt4.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop, QRect
 from PyQt4 import uic
 
@@ -12,6 +12,8 @@ sys.path.append(PROGRAM_DIR)
 ui_mainwindow, mainwindow = uic.loadUiType(PROGRAM_DIR+"/mainwindow.ui")
 
 
+# get device name by `scanimage -L` . it will be like "hpaio:/usb/DeskJet_2130..."
+# see scanimage options by running `scanimage --help -d "device_name"`
 
 class HpScanner:
     def __init__(self):
@@ -76,6 +78,11 @@ class Window(mainwindow, ui_mainwindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
+        self.setWindowIcon(QIcon(":/scanner.png"))
+        scan_icon = QApplication.style().standardIcon(QStyle.SP_DialogYesButton)
+        self.scanBtn.setIcon(scan_icon)
+        close_icon = QApplication.style().standardIcon(QStyle.SP_DialogCloseButton)
+        self.closeBtn.setIcon(close_icon)
         self.scanner = HpScanner()
         self.comboColor.addItems(self.scanner.supportedColorModes())
         self.comboResolution.addItems(self.scanner.supportedResolutions())
@@ -107,8 +114,6 @@ class Window(mainwindow, ui_mainwindow):
 
         self.statusbar.showMessage("Scan Started")
         wait(20)
-        # see scanimage options by running `scanimage --help -d "device_name"`
-        # get device name by `scanimage -L` . it will be like "hpaio:/usb/DeskJet_2130..."
         self.process.start('scanimage', args)
         if not self.process.waitForFinished() or self.process.exitCode():
             self.statusbar.showMessage("Scanning Failed !")
