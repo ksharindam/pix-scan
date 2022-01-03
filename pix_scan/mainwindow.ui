@@ -6,18 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>459</width>
-    <height>259</height>
+    <width>453</width>
+    <height>254</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Scan Photo</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1,0,0">
-    <property name="verticalSpacing">
-     <number>12</number>
-    </property>
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0">
     <item row="1" column="3">
      <widget class="QComboBox" name="comboColor"/>
     </item>
@@ -35,16 +32,6 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" rowspan="3">
-     <widget class="QLabel" name="scannerLabel">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="../files/resources.qrc">:/scanner.png</pixmap>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="4">
      <widget class="QLabel" name="labelExt">
       <property name="text">
@@ -59,19 +46,6 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="4">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="3" column="3">
      <widget class="QComboBox" name="comboArea"/>
     </item>
@@ -82,23 +56,10 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="closeBtn">
+    <item row="0" column="1">
+     <widget class="QLabel" name="label">
       <property name="text">
-       <string>Close</string>
-      </property>
-      <property name="shortcut">
-       <string>Esc</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="4">
-     <widget class="QPushButton" name="scanBtn">
-      <property name="text">
-       <string>Scan</string>
-      </property>
-      <property name="default">
-       <bool>true</bool>
+       <string>Output :</string>
       </property>
      </widget>
     </item>
@@ -109,12 +70,53 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label">
+    <item row="5" column="3" colspan="2">
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="scanBtn">
+         <property name="text">
+          <string>Scan</string>
+         </property>
+         <property name="icon">
+          <iconset theme="scanner"/>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="closeBtn">
+         <property name="text">
+          <string>Close</string>
+         </property>
+         <property name="shortcut">
+          <string>Esc</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="4">
+     <widget class="QLabel" name="scannerLabel">
       <property name="text">
-       <string>Output :</string>
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../files/resources.qrc">:/scanner.png</pixmap>
       </property>
      </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QComboBox" name="comboDevice"/>
     </item>
    </layout>
   </widget>

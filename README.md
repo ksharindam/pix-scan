@@ -1,6 +1,6 @@
 # Pix-Scan
 
-A Qt4 frontend of scanimage utility for using with HP scanners or printers  
+A Qt4 frontend of scanimage utility for using with HP and Brother scanners or printers  
 
 ### Dependencies
 * python3-pyqt4  

@@ -25,4 +25,4 @@ Description = A PyQt frontend of scanimage command for use with hp printers
 ...........................................................................
 """
 
-__version__ = "2.4"
+__version__ = "2.5"

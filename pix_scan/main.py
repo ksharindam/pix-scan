@@ -13,10 +13,66 @@ ui_mainwindow, mainwindow = uic.loadUiType(PROGRAM_DIR+"/mainwindow.ui")
 
 
 # get device name by `scanimage -L` . it will be like "hpaio:/usb/DeskJet_2130..."
+# device `brother5:bus2;dev3' is a Brother DCP-T420W USB scanner
+
 # see scanimage options by running `scanimage --help -d "device_name"`
 
+# view formatted device name
+# scanimage -f "%v %m%n"
+
+
+class DummyScanner:
+    def __init__(self, device):
+        self.device = device
+        # supported values
+        self.colors = ["Color"]
+        self.dpis = ["100"]
+        # all modes except Max Area, discards 20 pixels (2mm) from left and top
+        self.page_formats =["Maximum Area"]
+        # Brother T420W uses rounded value in steps of 0.0999908
+        # thus 215.9 becomes 215.88 and 297 becomes 296.973
+        self.scan_areas = [ "-x 215.88 -y 296.973"]
+        # output formats for each color modes
+        self.formats = ["jpeg"]
+        self.extensions = [".jpg"]
+        # default values
+        self.default_color_index = 0
+        self.default_resolution_index = 0
+        self.default_scan_area_index = 0
+        self.extension = self.extensions[self.default_color_index]
+
+    def supportedColorModes(self):
+        return self.colors
+
+    def supportedResolutions(self):
+        resolutions = [x+" DPI" for x in self.dpis]
+        return resolutions
+
+    def supportedScanAreas(self):
+        return self.page_formats
+
+    def setSelectedColor(self, index):
+        self.color = self.colors[index]
+        self.format = self.formats[index]
+        self.extension = self.extensions[index]
+
+    def setSelectedResolution(self, index):
+        self.resolution = self.dpis[index]
+
+    def setSelectedScanArea(self, index):
+        self.page_format = self.page_formats[index]
+        self.scan_area = self.scan_areas[index]
+
+    def getArgs(self):
+        # get args for scanimage command
+        self.crop_needed = False
+        args = []
+        return args
+
+
 class HpScanner:
-    def __init__(self):
+    def __init__(self, device):
+        self.device = device
         # supported values
         self.colors = ["Color", "Gray", "Lineart"]
         self.dpis = ["100", "200", "300", "600", "1200"]
@@ -59,7 +115,7 @@ class HpScanner:
     def getArgs(self):
         # get args for scanimage command
         self.crop_needed = False
-        args = []
+        args = ["-d", self.device]
         args.append("--mode=" + self.color)
         args.append("--resolution=" + self.resolution)
         args.append("--format=" + self.format)
@@ -74,30 +130,108 @@ class HpScanner:
         return args
 
 
+class BrotherScanner:
+    def __init__(self, device):
+        self.device = device
+        # supported values
+        self.colors = ["24bit Color", "True Gray", "Black & White", "Gray[Error Diffusion]"]
+        self.dpis = ["100", "200", "300", "400", "600"]
+        # all modes except Max Area, discards 20 pixels (2mm) from left and top
+        self.page_formats =["Maximum Area", "A4 (210x297mm)",
+                            "Letter (8.5x11in)", "4R (4x6in)"]
+        # Brother T420W uses rounded value in steps of 0.0999908
+        # thus 215.9 becomes 215.88 and 297 becomes 296.973
+        self.scan_areas = [ "-x 215.88 -y 296.973", "-x 210 -y 296.973",
+                            "-x 215.9 -y 279.4", "-x 152.4 -y 101.6"]
+        # output formats for each color modes
+        self.formats = ["jpeg", "jpeg", "tiff", "tiff"]
+        self.extensions = [".jpg", ".jpg", ".tiff", ".tiff"]
+        # default values
+        self.default_color_index = 0
+        self.default_resolution_index = 3
+        self.default_scan_area_index = 1
+        self.extension = self.extensions[self.default_color_index]
+
+    def supportedColorModes(self):
+        return self.colors
+
+    def supportedResolutions(self):
+        resolutions = [x+" DPI" for x in self.dpis]
+        return resolutions
+
+    def supportedScanAreas(self):
+        return self.page_formats
+
+    def setSelectedColor(self, index):
+        self.color = self.colors[index]
+        self.format = self.formats[index]
+        self.extension = self.extensions[index]
+
+    def setSelectedResolution(self, index):
+        self.resolution = self.dpis[index]
+
+    def setSelectedScanArea(self, index):
+        self.page_format = self.page_formats[index]
+        self.scan_area = self.scan_areas[index]
+
+    def getArgs(self):
+        # get args for scanimage command
+        self.crop_needed = False
+        args = ["-d", self.device]
+        args.append("--mode=" + self.color)
+        args.append("--resolution=" + self.resolution)
+        args.append("--format=" + self.format)
+
+        if not self.page_format.startswith("Maximum"):
+            args += self.scan_area.split()
+        return args
+
+
 class Window(mainwindow, ui_mainwindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.setupUi(self)
         self.setWindowIcon(QIcon(":/scanner.png"))
-        scan_icon = QApplication.style().standardIcon(QStyle.SP_DialogYesButton)
-        self.scanBtn.setIcon(scan_icon)
+        QIcon.setThemeName("Adwaita")
+        self.setupUi(self)
         close_icon = QApplication.style().standardIcon(QStyle.SP_DialogCloseButton)
         self.closeBtn.setIcon(close_icon)
-        self.scanner = HpScanner()
-        self.comboColor.addItems(self.scanner.supportedColorModes())
-        self.comboResolution.addItems(self.scanner.supportedResolutions())
-        self.comboArea.addItems(self.scanner.supportedScanAreas())
+
         # connect signals
+        self.comboDevice.currentIndexChanged.connect(self.onDeviceChange)
         self.comboColor.currentIndexChanged.connect(self.onColorModeChange)
         self.scanBtn.clicked.connect(self.startScanning)
         self.closeBtn.clicked.connect(self.close)
+
+        self.process = QProcess(self)
+        QTimer.singleShot(100, self.updateDeviceList)
+
+    def updateDeviceList(self):
+        self.devices_info = get_devices()
+        if len(self.devices_info)>0:
+            self.comboDevice.clear()
+            models = [ dev['model'] for dev in self.devices_info]
+            self.comboDevice.addItems(models)
+            self.selectDevice(0)
+
+    def selectDevice(self, index):
+        self.scanner = get_backend_from_scanner_device(self.devices_info[index])
+
+        self.comboColor.clear()
+        self.comboResolution.clear()
+        self.comboArea.clear()
+        self.comboColor.addItems(self.scanner.supportedColorModes())
+        self.comboResolution.addItems(self.scanner.supportedResolutions())
+        self.comboArea.addItems(self.scanner.supportedScanAreas())
+
         # Init values
         self.comboColor.setCurrentIndex(self.scanner.default_color_index)
         self.comboResolution.setCurrentIndex(self.scanner.default_resolution_index)
         self.comboArea.setCurrentIndex(self.scanner.default_scan_area_index)
         self.labelExt.setText(self.scanner.extension)
         self.filenameEdit.setText(self.newFileName())
-        self.process = QProcess(self)
+
+    def onDeviceChange(self, index):
+        self.selectDevice(index)
 
     def onColorModeChange(self, index):
         """ Change file format on colormode change """
@@ -106,6 +240,8 @@ class Window(mainwindow, ui_mainwindow):
         self.filenameEdit.setText(self.newFileName())
 
     def startScanning(self):
+        if self.comboDevice.count()==0:
+            return
         self.scanner.setSelectedColor(self.comboColor.currentIndex())
         self.scanner.setSelectedResolution(self.comboResolution.currentIndex())
         self.scanner.setSelectedScanArea(self.comboArea.currentIndex())
@@ -115,7 +251,7 @@ class Window(mainwindow, ui_mainwindow):
         self.statusbar.showMessage("Scan Started")
         wait(20)
         self.process.start('scanimage', args)
-        if not self.process.waitForFinished() or self.process.exitCode():
+        if not self.process.waitForFinished(-1) or self.process.exitCode():
             self.statusbar.showMessage("Scanning Failed !")
             return
         data = self.process.readAllStandardOutput()
@@ -146,6 +282,33 @@ class Window(mainwindow, ui_mainwindow):
             else:
                 break
         return filename
+
+# returns a list of device_info dictionares containing {'device', 'vendor', 'model'}
+def get_devices():
+    devices = []
+    process = QProcess()
+    process.start('scanimage', ['-f', '%d=>%v=>%m%n'])
+    if not process.waitForFinished():
+        return devices
+    data = bytes(process.readAllStandardOutput()).decode("utf-8").strip()
+    if data=="":
+        return devices
+    lines = data.split("\n")
+    for line in lines:
+        dev, vendor, model = line.strip().split('=>')
+        if not " " in dev:
+            devices.append({'device':dev, 'vendor':vendor, 'model':model})
+    return devices
+
+def get_backend_from_scanner_device(dev_info):
+    vendor = dev_info['vendor']
+    device = dev_info['device']
+    if vendor=="Hewlett-Packard":
+        return HpScanner(device)
+    if vendor=="Brother":
+        return BrotherScanner(device)
+    return DummyScanner(device)
+
 
 def wait(millisec):
     loop = QEventLoop()
