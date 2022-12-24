@@ -3,12 +3,12 @@ Name = Pix Scan
 Executable Command = pixscan
 Package Name = pix-scan
 Python Module Name = pix_scan
-Debian Dependency = python3-pyqt4, sane-utils
+Debian Dependency = python3-pyqt5, sane-utils
 
-Description = A PyQt frontend of scanimage command for use with hp printers
+Description = A PyQt frontend of scanimage command for use with some multifunction printers
 
 ...........................................................................
-|   Copyright (C) 2019-2021 Arindam Chaudhuri <ksharindam@gmail.com>       |
+|   Copyright (C) 2019-2022 Arindam Chaudhuri <ksharindam@gmail.com>       |
 |                                                                          |
 |   This program is free software: you can redistribute it and/or modify   |
 |   it under the terms of the GNU General Public License as published by   |
@@ -25,4 +25,4 @@ Description = A PyQt frontend of scanimage command for use with hp printers
 ...........................................................................
 """
 
-__version__ = "2.5"
+__version__ = "3.0"

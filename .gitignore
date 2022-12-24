@@ -13,3 +13,4 @@ build/
 # User created
 cache/
 debian/
+*_rc.py

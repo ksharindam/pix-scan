@@ -7,7 +7,7 @@ setup(
     packages=['pix_scan'],
     version=__version__,
     description='Simple scanimage frontend for HP Scanners',
-    keywords='pyqt pyqt4 scan',
+    keywords='pyqt scan',
     url='http://github.com/ksharindam/pix-scan',
     author='Arindam Chaudhuri',
     author_email='ksharindam@gmail.com',

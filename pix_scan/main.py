@@ -2,9 +2,10 @@
 """ Qt front end for scanimage program """
 
 import sys, os
-from PyQt4.QtGui import QApplication, QMainWindow, QImage, QStyle, QIcon
-from PyQt4.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop, QRect
-from PyQt4 import uic
+from PyQt5.QtGui import QImage, QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QStyle
+from PyQt5.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop, QRect
+from PyQt5 import uic
 
 PROGRAM_DIR = os.path.dirname(__file__)
 sys.path.append(PROGRAM_DIR)
