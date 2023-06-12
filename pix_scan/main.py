@@ -260,7 +260,7 @@ class Window(mainwindow, ui_mainwindow):
         filename = self.filenameEdit.text() + ext
         # to get more accurate scanned area when A4 at 300 dpi
         if (self.scanner.crop_needed):
-            image = QImage.fromData(data)
+            image = QImage.fromData(data, ext[1:].upper())
             image = image.copy(self.scanner.crop_rect)
             image.save(filename)
         else:
