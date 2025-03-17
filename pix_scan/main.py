@@ -27,7 +27,7 @@ class DummyScanner:
         self.device = device
         # supported values
         self.colors = ["Color"]
-        self.dpis = ["100"]
+        self.dpis = ["200"]
         # all modes except Max Area, discards 20 pixels (2mm) from left and top
         self.page_formats =["Maximum Area"]
         # Brother T420W uses rounded value in steps of 0.0999908
@@ -67,7 +67,7 @@ class DummyScanner:
     def getArgs(self):
         # get args for scanimage command
         self.crop_needed = False
-        args = []
+        args = ["-d", self.device]
         return args
 
 
@@ -131,6 +131,65 @@ class HpScanner:
         return args
 
 
+
+class EpsonScanner:
+    def __init__(self, device):
+        self.device = device
+        # supported values
+        self.colors = ["Color", "Grayscale", "Monochrome"]
+        self.dpis = ["100", "200", "300", "600", "1200"]
+        # all modes except Max Area, discards 20 pixels (2mm) from left and top
+        self.page_formats =["Maximum Area", "A4 (210x297mm)",
+                            "Letter (8.5x11in)", "4R (4x6in)"]
+        self.scan_areas = [ "-x 215.9 -y 297.18", "-x 210 -y 297",
+                            "-x 215.9 -y 279.4", "-x 152.4 -y 101.6"]
+        # output formats for each color modes
+        self.formats = ["jpeg", "jpeg", "tiff"]
+        self.extensions = [".jpg", ".jpg", ".tiff"]
+        # default values
+        self.default_color_index = 0
+        self.default_resolution_index = 2
+        self.default_scan_area_index = 1
+        self.extension = self.extensions[self.default_color_index]
+
+    def supportedColorModes(self):
+        return self.colors
+
+    def supportedResolutions(self):
+        resolutions = [x+" DPI" for x in self.dpis]
+        return resolutions
+
+    def supportedScanAreas(self):
+        return self.page_formats
+
+    def setSelectedColor(self, index):
+        self.color = self.colors[index]
+        self.format = self.formats[index]
+        self.extension = self.extensions[index]
+
+    def setSelectedResolution(self, index):
+        self.resolution = self.dpis[index]
+
+    def setSelectedScanArea(self, index):
+        self.page_format = self.page_formats[index]
+        self.scan_area = self.scan_areas[index]
+
+    def getArgs(self):
+        # get args for scanimage command
+        self.crop_needed = False
+        args = ["-d", self.device]
+        args.append("--mode=" + self.color)
+        args.append("--resolution=" + self.resolution)
+        args.append("--format=" + self.format)
+        args.append("--brightness=20")
+        #args.append("--contrast=10")
+
+        if not self.page_format.startswith("Maximum"):
+            args += self.scan_area.split()
+        return args
+
+
+
 class BrotherScanner:
     def __init__(self, device):
         self.device = device
@@ -188,6 +247,64 @@ class BrotherScanner:
         return args
 
 
+
+class CanonScanner:
+    def __init__(self, device):
+        self.device = device
+        # supported values
+        self.colors = ["Color", "Gray", "Lineart"]
+        self.dpis = ["75", "150", "300", "600"]
+        # all modes except Max Area, discards 20 pixels (2mm) from left and top
+        self.page_formats =["Maximum Area", "A4", "Letter", "4R"]
+        # Brother T420W uses rounded value in steps of 0.0999908
+        # thus 215.9 becomes 215.88 and 297 becomes 296.973
+        self.scan_areas = [ "-x 216.069 -y 297.011", "-x 210 -y 297.011",
+                            "-x 216.069 -y 279.4", "-x 152.4 -y 101.6"]
+        # output formats for each color modes
+        self.formats = ["jpeg", "jpeg", "tiff"]
+        self.extensions = [".jpg", ".jpg", ".tiff"]
+        # default values
+        self.default_color_index = 0
+        self.default_resolution_index = 2
+        self.default_scan_area_index = 1
+        self.extension = self.extensions[self.default_color_index]
+
+    def supportedColorModes(self):
+        return self.colors
+
+    def supportedResolutions(self):
+        resolutions = [x+" DPI" for x in self.dpis]
+        return resolutions
+
+    def supportedScanAreas(self):
+        return self.page_formats
+
+    def setSelectedColor(self, index):
+        self.color = self.colors[index]
+        self.format = self.formats[index]
+        self.extension = self.extensions[index]
+
+    def setSelectedResolution(self, index):
+        self.resolution = self.dpis[index]
+
+    def setSelectedScanArea(self, index):
+        self.page_format = self.page_formats[index]
+        self.scan_area = self.scan_areas[index]
+
+    def getArgs(self):
+        # get args for scanimage command
+        self.crop_needed = False
+        args = ["-d", self.device]
+        args.append("--mode=" + self.color)
+        args.append("--resolution=" + self.resolution)
+        args.append("--format=" + self.format)
+
+        if not self.page_format.startswith("Maximum"):
+            args += self.scan_area.split()
+        return args
+
+
+
 class Window(mainwindow, ui_mainwindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -212,7 +329,13 @@ class Window(mainwindow, ui_mainwindow):
             self.comboDevice.clear()
             models = [ dev['model'] for dev in self.devices_info]
             self.comboDevice.addItems(models)
-            self.selectDevice(0)
+            vendors = [ dev['vendor'] for dev in self.devices_info]
+            # Sorted according to scan quality
+            for i,vendor in enumerate(['HEWLETT-PACKARD', 'CANON', 'EPSON', 'BROTHER']):
+                if vendor in vendors:
+                    self.comboDevice.setCurrentIndex(i)
+                    break
+
 
     def selectDevice(self, index):
         self.scanner = get_backend_from_scanner_device(self.devices_info[index])
@@ -297,16 +420,19 @@ def get_devices():
     lines = data.split("\n")
     for line in lines:
         dev, vendor, model = line.strip().split('=>')
-        if not " " in dev:
-            devices.append({'device':dev, 'vendor':vendor, 'model':model})
+        devices.append({'device':dev, 'vendor':vendor.upper(), 'model':model})
     return devices
 
 def get_backend_from_scanner_device(dev_info):
     vendor = dev_info['vendor']
     device = dev_info['device']
-    if vendor=="Hewlett-Packard":
+    if vendor.upper=="HEWLETT-PACKARD":
         return HpScanner(device)
-    if vendor=="Brother":
+    if vendor=="CANON":
+        return CanonScanner(device)
+    if vendor=="EPSON":
+        return EpsonScanner(device)
+    if vendor=="BROTHER":
         return BrotherScanner(device)
     return DummyScanner(device)
 

@@ -17,3 +17,5 @@ Open terminal inside pix-scan directory. Then run...
 ### Supported Printers  
 * HP Deskjet series  
 * Brother Inkjets  
+* Epson L Series  
+* Canon G Series  
