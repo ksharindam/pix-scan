@@ -1,22 +1,10 @@
 
 from setuptools import setup
-from pix_scan import __version__
 
 setup(
     name='pix-scan',
     packages=['pix_scan'],
-    version=__version__,
-    description='Simple scanimage frontend for HP Scanners',
-    keywords='pyqt scan',
-    url='http://github.com/ksharindam/pix-scan',
-    author='Arindam Chaudhuri',
-    author_email='ksharindam@gmail.com',
-    license='GNU GPLv3',
-    classifiers=[
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python :: 3.7',
-    ],
+    #version=__version__,
     entry_points={
         'console_scripts': ['pixscan=pix_scan.main:main'],
     },

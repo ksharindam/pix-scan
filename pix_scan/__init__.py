@@ -25,4 +25,4 @@ Description = A PyQt frontend of scanimage command for use with some multifuncti
 ...........................................................................
 """
 
-__version__ = "4.0"
+__version__ = "4.1"

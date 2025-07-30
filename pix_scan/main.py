@@ -208,7 +208,7 @@ class BrotherScanner:
         self.extensions = [".jpg", ".jpg", ".tiff", ".tiff"]
         # default values
         self.default_color_index = 0
-        self.default_resolution_index = 3
+        self.default_resolution_index = 2
         self.default_scan_area_index = 1
         self.extension = self.extensions[self.default_color_index]
 
