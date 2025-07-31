@@ -331,8 +331,9 @@ class Window(mainwindow, ui_mainwindow):
             self.comboDevice.addItems(models)
             vendors = [ dev['vendor'] for dev in self.devices_info]
             # Sorted according to scan quality
-            for i,vendor in enumerate(['HEWLETT-PACKARD', 'CANON', 'EPSON', 'BROTHER']):
+            for vendor in ['HEWLETT-PACKARD', 'CANON', 'EPSON', 'BROTHER']:
                 if vendor in vendors:
+                    i = vendors.index(vendor)
                     self.comboDevice.setCurrentIndex(i)
                     break
 
