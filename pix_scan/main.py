@@ -427,7 +427,7 @@ def get_devices():
 def get_backend_from_scanner_device(dev_info):
     vendor = dev_info['vendor']
     device = dev_info['device']
-    if vendor.upper=="HEWLETT-PACKARD":
+    if vendor.upper()=="HEWLETT-PACKARD":
         return HpScanner(device)
     if vendor=="CANON":
         return CanonScanner(device)
