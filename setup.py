@@ -10,7 +10,7 @@ setup(
     },
     data_files=[
         ('share/applications', ['files/pix-scan.desktop']),
-        ('share/icons', ['files/pix-scan.png'])
+        ('share/icons/hicolor/scalable/apps', ['files/pix-scan.png'])
     ],
     include_package_data=True,
     zip_safe=False
