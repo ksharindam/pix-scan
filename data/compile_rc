@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "<RCC>" > resources.qrc
+echo "  <qresource>" >> resources.qrc
+
+for f in icons/*; do
+    echo "    <file>${f}</file>" >> resources.qrc
+done
+
+echo "  </qresource>" >> resources.qrc
+echo "</RCC>" >> resources.qrc
+
+# requires qt6-base-dev-tools package
+/usr/lib/qt6/libexec/rcc -g python resources.qrc -o ../pix_scan/resources_rc.py
+
+if [ $? -eq 0 ]; then
+    sed -i "s/^from PySide.*/from PyQt6 import QtCore/g" ../pix_scan/resources_rc.py
+    echo "Compiled Resources saved as ../pix_scan/resources_rc.py"
+else
+    echo "Failed to compile resources"
+fi
+

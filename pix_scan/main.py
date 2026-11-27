@@ -2,14 +2,15 @@
 """ Qt front end for scanimage program """
 
 import sys, os
-from PyQt5.QtGui import QImage, QIcon
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStyle
-from PyQt5.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop, QRect
-from PyQt5 import uic
+from PyQt6.QtGui import QImage, QIcon
+from PyQt6.QtWidgets import QApplication, QMainWindow, QStyle
+from PyQt6.QtCore import QProcess, QFile, QIODevice, QTimer, QEventLoop, QRect
+from PyQt6 import uic
 
 PROGRAM_DIR = os.path.dirname(__file__)
 sys.path.append(PROGRAM_DIR)
 
+import resources_rc
 ui_mainwindow, mainwindow = uic.loadUiType(PROGRAM_DIR+"/mainwindow.ui")
 
 
@@ -311,7 +312,7 @@ class Window(mainwindow, ui_mainwindow):
         self.setWindowIcon(QIcon(":/scanner.png"))
         QIcon.setThemeName("Adwaita")
         self.setupUi(self)
-        close_icon = QApplication.style().standardIcon(QStyle.SP_DialogCloseButton)
+        close_icon = QApplication.style().standardIcon(QStyle.StandardPixmap.SP_DialogCloseButton)
         self.closeBtn.setIcon(close_icon)
 
         # connect signals
@@ -389,7 +390,7 @@ class Window(mainwindow, ui_mainwindow):
             image.save(filename)
         else:
             img_file = QFile(filename, self)
-            img_file.open(QIODevice.WriteOnly)
+            img_file.open(QIODevice.OpenModeFlag.WriteOnly)
             img_file.write(data)
             img_file.close()
         data.clear()
@@ -441,7 +442,7 @@ def get_backend_from_scanner_device(dev_info):
 def wait(millisec):
     loop = QEventLoop()
     QTimer.singleShot(millisec, loop.quit)
-    loop.exec_()
+    loop.exec()
 
 def main():
     app = QApplication(sys.argv)
@@ -449,7 +450,7 @@ def main():
     app.setApplicationName("pix-scan")
     win = Window()
     win.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 if __name__ == '__main__':
     main()

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Scan Photo</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../data/resources.qrc">
+    <normaloff>:/icons/scanner.png</normaloff>:/icons/scanner.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0">
     <item row="1" column="3">
@@ -85,7 +89,8 @@
           <string>Scan</string>
          </property>
          <property name="icon">
-          <iconset theme="scanner"/>
+          <iconset theme="scanner">
+           <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="default">
           <bool>true</bool>
@@ -111,7 +116,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../files/resources.qrc">:/scanner.png</pixmap>
+       <pixmap resource="../data/resources.qrc">:/icons/scanner.png</pixmap>
       </property>
      </widget>
     </item>
@@ -123,7 +128,8 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../files/resources.qrc"/>
+  <include location="../data/resources.qrc"/>
+  <include location="../data/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
